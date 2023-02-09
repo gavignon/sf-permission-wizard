@@ -1,0 +1,69 @@
+<template>
+    <lightning-card title="Permission Wizard">
+        <div class="slds-var-p-around_small">
+            <template if:true={loading}>
+                <lightning-spinner size="medium"></lightning-spinner>
+            </template>
+
+            <lightning-input type="text" label="SObject" placeholder="Account" field-level-help="API Name" value={objectApiName} onchange={handleObjectChange}></lightning-input>
+            <lightning-input type="text" label="Permission Set(s)" placeholder="BRD_User" field-level-help="API Name, separated by ';'" value={permissionSets} onchange={handlePermissionSetsChange}></lightning-input>
+            <br/>
+            <div class="action-button"><lightning-button label="System/User Permissions" variant="brand" disabled></lightning-button></div>
+            <div class="action-button"><lightning-button label="Object Permissions" variant="brand" disabled></lightning-button></div>
+            <div class="action-button"><lightning-button label="Field Permissions" variant="brand" onclick={fieldPermissions}></lightning-button></div>
+            <div style="float: right;display:inline-block"><lightning-button label="Update" variant="brand" onclick={handleUpdate} disabled={disableUpdate}></lightning-button></div>
+            <br/>
+            <br/>
+
+            <template if:true={executed}>
+                <div style="overflow:auto">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-label="Example default base table of Opportunities">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <template for:each={columns} for:item="column">
+                                    <th class={column.class} scope="col" key={column.key} colspan={column.colspan}>
+                                        <div class="slds-truncate" title={column.label}>{column.label}</div>
+                                    </th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="slds-hint-parent">
+                                <template for:each={subColumns} for:item="subColumn">
+                                    <td class={subColumn.class} scope="col" key={subColumn.key}>
+                                        <template if:true={subColumn.checkbox}>
+                                            <div class="subHeaderDiv">
+                                                <input type="checkbox" class="check-all" onchange={handleGlobalCheckbox} data-action={subColumn.value} data-permission={subColumn.permissionSet} /> 
+                                                <span>{subColumn.label}</span>
+                                            </div>
+                                        </template>
+                                        <template if:false={subColumn.checkbox}>
+                                            <span>{subColumn.label}</span>
+                                        </template>
+                                    </td>
+                                </template>
+                            </tr>
+
+                            <template for:each={fieldsData} for:item="field">
+                                <tr class="slds-hint-parent" key={field.value}>
+                                    <td>
+                                        <div class="slds-truncate">{field.fieldName}</div>
+                                    </td>
+                                    <template for:each={field.permissions} for:item="permission">
+                                        <td key={permission.readkey} class={permission.class}>
+                                            <div class="slds-truncate"><input type="checkbox" checked={permission.read} onchange={handleCheckbox} data-field={field.fieldName} data-action="read" data-permission={permission.permission} disabled={permission.disableread}/></div>
+                                        </td>
+                                        <td key={permission.writekey} class={permission.class}>
+                                            <div class="slds-truncate"><input type="checkbox" checked={permission.write} onchange={handleCheckbox} data-field={field.fieldName} data-action="write" data-permission={permission.permission} disabled={permission.disablewrite}/></div>
+                                        </td>
+                                    </template>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+        </div>
+        <!-- <p slot="footer">Card Footer</p> -->
+    </lightning-card>
+</template>

@@ -1,0 +1,50 @@
+.permission-set-1{
+    background-color: #0176d3;
+    text-align: center;
+    color: #fff;
+}
+.permission-set-2{
+    background-color: #014486;
+    text-align: center;
+    color: #fff;
+}
+.subHeader{
+    background-color: #eef4ff;
+    font-size: 10px;
+    line-height: 13px;
+    font-weight: bold;
+    color: #747474;
+    height: 27px;
+}
+.subHeaderCheck{
+    text-align:center;
+    height: 27px;
+}
+.subHeaderDiv{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.permission{
+    text-align: center;
+}
+.permission-altered{
+    background-color: #f3f3f3;
+}
+.changed{
+    background-color: #fbf3e0;
+}
+.field{
+    background-color: #000;
+    color: #fff;
+}
+.check-all{
+    float: left;
+    position: relative;
+    margin-right: 5px;
+}
+.action-button{
+    display:inline-block;
+    margin-right: 5px;
+}
